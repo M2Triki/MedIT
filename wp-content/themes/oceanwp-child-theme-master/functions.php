@@ -33,8 +33,10 @@ add_action( 'wp_enqueue_scripts', 'oceanwp_child_enqueue_parent_style' );
 
 
 function contact_btn( $items, $args ) {
-	$items .= '<a href="/contact" class="contact-btn">Nous contacter</a>';
-	return $items;
+    // Utilisation de home_url() pour générer une URL dynamique
+    $contact_url = home_url('/contact/');
+    $items .= '<li class="menu-item contact-btn"><a href="' . esc_url( $contact_url ) . '" class="menu-link">Nous contacter</a></li>';
+    return $items;
 }
 
 add_filter( 'wp_nav_menu_items', 'contact_btn', 10, 2 );
