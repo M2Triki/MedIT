@@ -1,0 +1,159 @@
+// Display Flex
+@mixin display() {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+// Flex Wrap
+@mixin flex-wrap( $args ) {
+    -ms-flex-wrap: $args;
+    -webkit-flex-wrap: $args;
+    flex-wrap: $args;
+}
+
+// Flex Direction
+@mixin flex-direction( $args ) {
+    -webkit-flex-direction: $args;
+    flex-direction: $args;
+}
+
+// Align Items
+@mixin align-items( $args ) {
+    -webkit-align-items: $args;
+    align-items: $args;
+}
+
+// Justify Content
+@mixin justify-content( $args ) {
+    -webkit-justify-content: $args;
+    justify-content: $args;
+}
+
+// Transition
+@mixin transition( $args ) {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
+    transition: $args;
+}
+
+/*------------------------------------------------------------------
+Price List
+-------------------------------------------------------------------*/
+.oew-price-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    li:not(:last-child) {
+        margin-bottom: 10px;
+    }
+    
+    &-item {
+        display: block;
+    }
+    
+    &-text {
+        @include display();
+        @include flex-wrap( wrap );
+        @include align-items( center );
+        @include justify-content( space-between );
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    &-image {
+        max-width: 50%;
+        padding-right: 18px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    &-title {
+        color: #333;
+        max-width: 80%;
+    }
+
+    &-description {
+        color: #999999;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    &-separator {
+        border-bottom: 1px dotted #b5b5b5;
+        margin-left: 10px;
+        height: 0;
+        flex: 1;
+    }
+
+    &-price-wrap {
+        display: inline-flex;
+    }
+
+    &.oew-price-list-inline &-price-wrap {
+        margin-top: 10px;
+    }
+
+    &-price {
+        color: #13aff0;
+        border: 1px dotted #13aff0;
+        width: 50px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 2px;
+        text-align: center;
+        @include transition( all .3s ease );
+    }
+
+    a:hover &-price {
+        background-color: #13aff0;
+        color: #fff;
+    }
+}
+
+/* RTL */
+body.rtl {
+    .oew-price-list {
+        &-image {
+            padding-left: 25px;
+            padding-right: 0;
+        }
+        
+        &-separator {
+            margin-right: 10px;
+            margin-left: 0;
+        }
+
+        &-price {
+            padding-right: 30px;
+            padding-left: 0;
+        }
+    }
+}
+
+/*------------------------------------------------------------------
+Responsive
+-------------------------------------------------------------------*/
+@media only screen and (max-width: 480px) {
+    .oew-price-list {
+        &-image,
+        &-separator {
+            display: none;
+        }
+
+        &-title {
+            font-size: 14px;
+            max-width: 100%;
+        }
+
+        &-description {
+            font-size: 12px;
+        }
+    }
+}

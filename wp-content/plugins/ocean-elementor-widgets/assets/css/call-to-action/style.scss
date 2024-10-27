@@ -1,0 +1,116 @@
+// Display flex
+@mixin flex() {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+// Flex Wrap
+@mixin flex-wrap( $args ) {
+    -ms-flex-wrap: $args;
+    -webkit-flex-wrap: $args;
+    flex-wrap: $args;
+}
+
+// Align center
+@mixin align() {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+// Order
+@mixin order( $args ) {
+    -ms-flex-order: $args;
+    -webkit-order: $args;
+    order: $args;
+}
+
+/*------------------------------------------------------------------
+Call To Action
+-------------------------------------------------------------------*/
+.oew-call-to-action {
+    @include flex();
+    @include flex-wrap( wrap );
+    overflow: hidden;
+
+    &-title {
+        width: 100%;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    &-description p {
+        margin: 0;
+    }
+
+    &-btn {
+        a {
+            padding: 20px 40px;
+            font-size: 15px;
+        }
+    }
+
+    .oew-button-icon {
+
+        i, svg {
+            width: 1em;
+            height: 1em;
+            position: relative;
+            vertical-align: middle;
+        }
+
+    }
+}
+
+.oew-call-to-action-left .oew-call-to-action,
+.oew-call-to-action-right .oew-call-to-action {
+    @include align();
+
+    .oew-call-to-action-text {
+        flex: 1;
+    }
+}
+
+.oew-call-to-action-left .oew-call-to-action {
+    text-align: right;
+
+    .oew-call-to-action-btn {
+        @include order( -1 );
+        padding-right: 60px;
+    }
+}
+
+.oew-call-to-action-right .oew-call-to-action {
+    .oew-call-to-action-btn {
+        padding-left: 60px;
+    }
+}
+
+.oew-call-to-action-center .oew-call-to-action {
+    text-align: center;
+
+    .oew-call-to-action-btn {
+        width: 100%;
+        margin-top: 20px;
+    }
+}
+
+/*------------------------------------------------------------------
+Responsive
+-------------------------------------------------------------------*/
+@media (max-width: 959px) {
+    .oew-call-to-action {
+        &-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 0 !important;
+        }
+    }
+
+    .oew-call-to-action-left .oew-call-to-action .oew-call-to-action-btn {
+        @include order( 1 );
+    }
+}
