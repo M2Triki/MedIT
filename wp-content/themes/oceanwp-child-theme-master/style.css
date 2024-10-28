@@ -10,26 +10,28 @@ Version: 1.0
 
 /* Parent stylesheet should be loaded from functions.php not using @import */
 
+/***** Bouton CONTACT *****/
 .contact-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   background-color: white;
   padding: 6px 16px;
   border-radius: 6px;
   line-height: 1;
-  height: 84px;
+  height: auto;
+  margin: 0 10px;
+  vertical-align: middle;
 }
 
 .contact-btn a {
-  font-size: inherit;
   color: black !important;
   text-decoration: none;
-  display: inline-block;
-  line-height: 1.5; /* Ajuste pour aligner le texte au centre */
 }
 .contact-btn a:hover {
   color: #5fddc8 !important;
 }
+
+/***** PopUP *****/
 .popup-overlay {
   position: fixed;
   width: 100%;
@@ -116,4 +118,10 @@ Version: 1.0
   margin-top: 20px;
   margin-bottom: 10px;
   border-bottom: 1px solid #28babf;
+}
+
+/***** FOOTER *****/
+#footer-bottom #footer-bottom-menu ul {
+  display: flex;
+  align-items: center;
 }
