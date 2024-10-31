@@ -20,16 +20,15 @@
  * @link http://codex.wordpress.org/Child_Themes
  */
 function oceanwp_child_enqueue_parent_style() {
-	// Dynamically get version number of the parent stylesheet (lets browsers re-cache your stylesheet when you update your theme)
-	$theme   = wp_get_theme( 'OceanWP' );
-	$version = $theme->get( 'Version' );
-	// Load the stylesheet
-	wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array( 'oceanwp-style' ), $version );
-
+    // Dynamically get version number of the parent stylesheet (lets browsers re-cache your stylesheet when you update your theme)
+    $theme   = wp_get_theme( 'OceanWP' );
+    $version = $theme->get( 'Version' );
+    // Load the stylesheet
+    wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array( 'oceanwp-style' ), $version );
+    // Enqueue the child theme script.js
+    wp_enqueue_script( 'child-script', get_stylesheet_directory_uri() . '/scripts/script.js', array( 'jquery' ), $version, true );
 }
 add_action( 'wp_enqueue_scripts', 'oceanwp_child_enqueue_parent_style' );
-
-
 
 
 function contact_btn( $items, $args ) {
@@ -38,5 +37,4 @@ function contact_btn( $items, $args ) {
     $items .= '<li class="menu-item contact-btn"><a href="' . esc_url( $contact_url ) . '" class="menu-link">Nous contacter</a></li>';
     return $items;
 }
-
 add_filter( 'wp_nav_menu_items', 'contact_btn', 10, 2 );
