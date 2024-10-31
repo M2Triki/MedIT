@@ -11,6 +11,10 @@ Version: 1.0
 /* Parent stylesheet should be loaded from functions.php not using @import */
 
 /***** Bouton CONTACT *****/
+#site-navigation-wrap .dropdown-menu > li {
+  padding: 0; /* Padding pour aligner le bouton Contact du header */
+}
+
 .contact-btn {
   display: inline-flex;
   align-items: center;
