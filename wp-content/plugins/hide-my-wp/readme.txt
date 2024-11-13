@@ -2,9 +2,9 @@
 Contributors: johndarrel
 Tags: hide,security,firewall,login,wp admin
 Requires at least: 4.6
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 5.3.01
+Stable tag: 5.3.02
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -322,6 +322,20 @@ Enjoy!
 17. New custom core paths changed with Hide My WP Ghost
 
 == Changelog ==
+= 5.3.02 (08 Nov 2024) =
+Update - Compatibility with WP 6.7
+Update - Add Brute Force for comments form in Brute Force
+Update - Translations
+Fixed - Issue when changing relative to absolute path in javascript
+Fixed - Root domain regarding multisite with subdomains
+Fixed - Compatibility with LiteSpeed CDN domains
+Fixed - Use WordPress function for all parse url
+Fixed - Activate firewall by default when Lite mode option is selected
+Fixed - Compatibility with WP Rocket background CSS loader
+Fixed - Flush changed to config file when some features are activated in Overview section
+Fixed - Clear cache for Litespeed plugin when changing is made in the Mapping section
+Fixed - Activate the Text Mapping in CSS and JS files option for hiding class names like elementor or woocommerce
+
 = 5.3.01 (07 Oct 2024) =
 Update - Added Hide My WP Advanced Pack in Plugins suggestion
 Update - Added Drupal 11 in CMS simulation

@@ -1,4 +1,4 @@
-/*! elementor - v3.25.0 - 29-10-2024 */
+/*! elementor - v3.25.0 - 13-11-2024 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -27936,7 +27936,16 @@ var EditorBase = /*#__PURE__*/function (_Marionette$Applicati) {
         }
         if (!this.widgetsCache[widgetType].commonMerged && !this.widgetsCache[widgetType].atomic_controls) {
           var _this$widgetsCache$wi;
-          jQuery.extend(this.widgetsCache[widgetType].controls, this.widgetsCache.common.controls);
+          var commonControls = this.widgetsCache.common.controls;
+
+          /**
+           * Filter widgets common controls.
+           *
+           * @param array  commonControls - An array of the default common controls.
+           * @param string widgetType     - The widget type.
+           */
+          commonControls = elementor.hooks.applyFilters('elements/widget/controls/common/default', commonControls, widgetType);
+          jQuery.extend(this.widgetsCache[widgetType].controls, commonControls);
           this.widgetsCache[widgetType].controls = elementor.hooks.applyFilters('elements/widget/controls/common', this.widgetsCache[widgetType].controls, widgetType, this.widgetsCache[widgetType]);
 
           // TODO: Move this code to own file.

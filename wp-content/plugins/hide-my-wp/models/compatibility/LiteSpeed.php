@@ -10,6 +10,22 @@ defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
 class HMWP_Models_Compatibility_LiteSpeed extends HMWP_Models_Compatibility_Abstract {
 
+	public function __construct() {
+
+		parent::__construct();
+
+		defined( 'LITESPEED_DATA_FOLDER' ) || define( 'LITESPEED_DATA_FOLDER', 'cache/ls' );
+
+		add_action('wp_ajax_async_litespeed', function (){
+			add_filter( 'hmwp_process_init', '__return_false' );
+			add_filter( 'hmwp_process_hide_urls', '__return_false' );
+		},9);
+		add_action('wp_ajax_nopriv_async_litespeed', function (){
+			add_filter( 'hmwp_process_init', '__return_false' );
+			add_filter( 'hmwp_process_hide_urls', '__return_false' );
+		},9);
+	}
+
 	public function hookAdmin() {
 		add_action( 'wp_initialize_site', function ( $site_id ) {
 			HMWP_Classes_ObjController::getClass( 'HMWP_Models_Rewrite' )->flushChanges();
@@ -30,10 +46,8 @@ class HMWP_Models_Compatibility_LiteSpeed extends HMWP_Models_Compatibility_Abst
 
 		// Only if the litespeed plugin is installed
 		if ( HMWP_Classes_Tools::isPluginActive( 'litespeed-cache/litespeed-cache.php' ) ) {
-			add_action( 'hmwp_mappsettings_saved', array( $this, 'doMapping' ) );
 
 			if ( ! HMWP_Classes_Tools::isWpengine() ) {
-				add_action( 'hmwp_settings_saved', array( $this, 'doMapping' ) );
 				add_action( 'hmwp_settings_saved', array( $this, 'doExclude' ) );
 			}
 		}
@@ -55,41 +69,6 @@ class HMWP_Models_Compatibility_LiteSpeed extends HMWP_Models_Compatibility_Abst
 		// Set priority load for compatibility
 		add_filter( 'hmwp_priority_buffer', '__return_true' );
 		add_filter( 'litespeed_comment', '__return_false' );
-
-	}
-
-	/**
-	 * Adds the URL and text mappings for the wp-rocket plugin, particularly
-	 * mapping specific paths and script branding for litespeed caching.
-	 *
-	 * @return void
-	 * @throws Exception
-	 */
-	public function doMapping() {
-
-		// Add the URL mapping for wp-rocket plugin
-		if ( HMWP_Classes_Tools::getDefault( 'hmwp_wp-content_url' ) <> HMWP_Classes_Tools::getOption( 'hmwp_wp-content_url' ) ) {
-			$hmwp_url_mapping  = json_decode( HMWP_Classes_Tools::getOption( 'hmwp_url_mapping' ), true );
-			$hmwp_text_mapping = json_decode( HMWP_Classes_Tools::getOption( 'hmwp_text_mapping' ), true );
-
-			// Map the litespeed default cache path
-			if ( HMWP_Classes_Tools::getDefault( 'hmwp_wp-content_url' ) <> HMWP_Classes_Tools::getOption( 'hmwp_wp-content_url' ) ) {
-				if ( empty( $hmwp_url_mapping['from'] ) || ! in_array( '/' . HMWP_Classes_Tools::getOption( 'hmwp_wp-content_url' ) . '/litespeed/', $hmwp_url_mapping['from'] ) ) {
-					$hmwp_url_mapping['from'][] = '/' . HMWP_Classes_Tools::getOption( 'hmwp_wp-content_url' ) . '/litespeed/';
-					$hmwp_url_mapping['to'][]   = '/' . HMWP_Classes_Tools::getOption( 'hmwp_wp-content_url' ) . '/mycache/';
-				}
-			}
-
-			// Map the litespeed script branding
-			if ( empty( $hmwp_text_mapping['from'] ) || ! in_array( 'litespeed', $hmwp_text_mapping['from'] ) ) {
-				$hmwp_text_mapping['from'][] = 'litespeed';
-				$hmwp_text_mapping['to'][]   = 'text';
-			}
-
-			//Save Text Mapping and URL Mapping
-			HMWP_Classes_ObjController::getClass( 'HMWP_Models_Settings' )->saveURLMapping( $hmwp_url_mapping['from'], $hmwp_url_mapping['to'] );
-			HMWP_Classes_ObjController::getClass( 'HMWP_Models_Settings' )->saveTextMapping( $hmwp_text_mapping['from'], $hmwp_text_mapping['to'] );
-		}
 
 	}
 

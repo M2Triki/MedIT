@@ -630,17 +630,11 @@ class HMWP_Classes_Tools {
 	 */
 	public function hookActionlink( $links ) {
 		if ( get_transient( 'hmwp_disable' ) ) {
-			$links[] = '<a href="' . add_query_arg( array(
-					'hmwp_nonce' => wp_create_nonce( 'hmwp_pause_disable' ),
-					'action'     => 'hmwp_pause_disable'
-				) ) . '" class="btn btn-default btn-sm mt-3" />' . esc_html__( "Resume Security", 'hide-my-wp' ) . '</a>';
+			$links[] = '<a href="' . esc_url( add_query_arg( array( 'hmwp_nonce' => wp_create_nonce( 'hmwp_pause_disable' ), 'action' => 'hmwp_pause_disable' ) ) ) . '" class="btn btn-default btn-sm mt-3" />' . esc_html__( "Resume Security", 'hide-my-wp' ) . '</a>';
 		} else {
-			$links[] = '<a href="' . add_query_arg( array(
-					'hmwp_nonce' => wp_create_nonce( 'hmwp_pause_enable' ),
-					'action'     => 'hmwp_pause_enable'
-				) ) . '" class="btn btn-default btn-sm mt-3" />' . esc_html__( "Pause for 5 minutes", 'hide-my-wp' ) . '</a>';
+			$links[] = '<a href="' . esc_url( add_query_arg( array( 'hmwp_nonce' => wp_create_nonce( 'hmwp_pause_enable' ), 'action' => 'hmwp_pause_enable' ) ) ) . '" class="btn btn-default btn-sm mt-3" />' . esc_html__( "Pause for 5 minutes", 'hide-my-wp' ) . '</a>';
 		}
-		$links[] = '<a href="' . self::getSettingsUrl() . '">' . esc_html__( 'Settings', 'hide-my-wp' ) . '</a>';
+		$links[] = '<a href="' . esc_url( self::getSettingsUrl() ) . '">' . esc_html__( 'Settings', 'hide-my-wp' ) . '</a>';
 		$links[] = '<a href="https://hidemywpghost.com/hide-my-wp-pricing/" target="_blank" style="font-weight: bold;color: #007cba">' . esc_html__( 'Go PRO', 'hide-my-wp' ) . '</a>';
 
 		return array_reverse( $links );

@@ -270,8 +270,15 @@ class HMWP_Models_Compatibility {
 
 		// Change the paths in the cached css
 		if ( HMWP_Classes_Tools::isPluginActive( 'litespeed-cache/litespeed-cache.php' ) ) {
-			// Set the cache directory for this plugin
+
+			//Set the cache directory for this plugin
 			$path = $content_dir . 'litespeed/';
+
+			//if set by the plugin, them select the defined folder
+			if( defined('LITESPEED_DATA_FOLDER') && LITESPEED_DATA_FOLDER <> ''){
+				$path = $content_dir . LITESPEED_DATA_FOLDER . '/';
+			}
+
 			if ( $wp_filesystem->is_dir( $path ) ) {
 				HMWP_Classes_ObjController::getClass( 'HMWP_Models_Cache' )->setCachePath( $path );
 
